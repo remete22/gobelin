@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="dist/app.css">
+
+  <title>Document</title>
+</head>
+<body>
+
+  <div x-data="goblen" class="">
+    <div class="flex gap-12 p-3">
+      <div class="flex flex-col gap-2">
+        <label for="width">
+          Grid szélessége
+        </label>
+        <input type="number" name="width" id="width" class="input" min="1" x-model="width">
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="height">
+          Grid magassága
+        </label>
+        <input type="number" name="height" id="height" class="input" min="1" x-model="height">
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <div class="h-6 flex-none"></div>
+        <button
+          type="button"
+          class="button"
+          x-on:click="openSave = true"
+        >
+          Mentés
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <div class="h-6 flex-none"></div>
+        <button
+          type="button"
+          class="button is-link"
+          x-on:click="openLoad = true"
+        >
+          Betöltés
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <div class="h-6 flex-none"></div>
+        <button
+          type="button"
+          class="button is-danger"
+          x-on:click="reload()"
+        >
+          Alaphelyzetbe állítás
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-8 gap-4 p-3">
+      <div class="color-picker">
+        <div class="color-name">
+          white
+        </div>
+        <div class="color-list">
+          <input
+            type="radio"
+            name="color-picker"
+            id=""
+            class="color-list-item bg-white"
+            x-model="currentColor"
+            value="white"
+          >
+        </div>
+      </div>
+      <div class="color-picker">
+        <div class="color-name">
+          black
+        </div>
+        <div class="color-list">
+          <input
+            type="radio"
+            name="color-picker"
+            id=""
+            class="color-list-item bg-black"
+            x-model="currentColor"
+            value="black"
+          >
+        </div>
+      </div>
+      <template x-for="(color, index) in colorList" :key="index">
+        <div class="color-picker">
+          <div class="color-name" x-text="color"></div>
+          <div class="color-list">
+            <input
+              type="radio"
+              name="color-picker"
+              id=""
+              x-bind:class="`color-list-item bg-${color}-50`"
+              x-model="currentColor"
+              x-bind:value="`${color}-50`"
+            >
+  
+            <template x-for="i in 9" x-bind:key="i">
+              <input
+                type="radio"
+                name="color-picker"
+                id=""
+                x-bind:class="`color-list-item bg-${color}-${i}00`"
+                x-model="currentColor"
+                x-bind:value="`${color}-${i}00`"
+              >
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <div class="goblen-grid">
+      <template x-for="h in height" x-bind:key="h">
+        <div class="goblen-grid-row">
+          <template x-for="w in width" x-bind:key="w">
+            <div
+              x-bind:class="`goblen-grid-item bg-${grid[h-1] ? grid[h - 1][w - 1] : 'white'}`"
+              x-on:click="grid[h - 1][w - 1] = currentColor"
+            ></div>
+          </template>
+        </div>
+      </template>
+    </div>
+
+    <div
+      class="modal"
+      x-cloak
+      x-show="openSave"
+      x-transtition
+    >
+      <div class="modal-bg" x-on:click="openSave = false"></div>
+      <div class="modal-close" x-on:click="openSave = false">&times;</div>
+      <div class="modal-content">
+        <div class="flex flex-wrap gap-3">
+          <template x-for="i in 4" x-bind:key="i">
+            <button
+              type="button"
+              class="button"
+              x-text="`Mentés a(z) ${i}. helyre`"
+              x-on:click="save(i - 1)"
+            ></button>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal"
+      x-cloak
+      x-show="openLoad"
+      x-transtition
+    >
+      <div class="modal-bg" x-on:click="openLoad = false"></div>
+      <div class="modal-close" x-on:click="openLoad = false">&times;</div>
+      <div class="modal-content">
+        <div class="flex flex-wrap gap-3">
+          <template x-for="i in 4" x-bind:key="i">
+            <button
+              type="button"
+              class="button is-link"
+              x-text="`${i}. Mentés`"
+              x-on:click="load(i - 1)"
+            ></button>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="dist/app.js"></script>
+</body>
+</html>

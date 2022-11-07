@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-zinc-100 text-zinc-800;
+}
+
+.input {
+  @apply appearance-none border border-zinc-400 rounded-md p-2 w-24 bg-white;
+}
+
+.button {
+  @apply flex-auto border border-zinc-400 hover:border-emerald-400 rounded-md p-2 bg-white hover:bg-emerald-500 hover:text-white w-48 duration-300;
+}
+.button.is-danger {
+  @apply hover:border-red-500 hover:bg-red-600;
+}
+.button.is-link {
+  @apply hover:border-blue-500 hover:bg-blue-600;
+}
+
+.color-name {
+  @apply mb-1;
+}
+.color-list {
+  @apply grid grid-cols-10 gap-2;
+}
+.color-list-item {
+  @apply appearance-none w-3 h-3 outline outline-zinc-400 checked:outline-black checked:outline-offset-1;
+}
+
+.goblen-grid {
+  @apply p-3;
+}
+.goblen-grid-row {
+  @apply flex;
+}
+.goblen-grid-item {
+  @apply w-4 h-4 flex-none border hover:border-black;
+}
+
+.modal {
+  @apply fixed top-0 left-0 w-full h-full flex items-center justify-center p-3;
+}
+.modal-bg {
+  @apply fixed top-0 left-0 w-full h-full bg-black bg-opacity-50;
+}
+.modal-close {
+  line-height: 0;
+
+  @apply fixed top-3 right-3 text-2xl cursor-pointer text-white w-8 h-8 duration-300 flex items-center justify-center rounded-md pb-0.5;
+}
+.modal-close:hover {
+  box-shadow: inset 0 0 0 1px white;
+}
+.modal-content {
+  @apply max-w-full p-4 bg-white relative rounded-md;
+}
+
+[x-cloak] {
+  display: none !important;
+}
