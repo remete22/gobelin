@@ -67,14 +67,16 @@ Alpine.data('goblen', () => ({
 
       this.reload();
 
-      save = save.slice(2);
+      setTimeout(() => {
+        save = save.slice(2);
 
-      for (let h = 0; h < this.height; h++) {
-        for (let w = 0; w < this.width; w++) {
-          this.grid[h][w] = save[h * this.width + w];
+        for (let h = 0; h < this.height; h++) {
+          for (let w = 0; w < this.width; w++) {
+            this.grid[h][w] = save[h * this.width + w];
+          }
         }
-      }
-      this.openLoad = false;
+        this.openLoad = false;
+      }, 0);
     } else {
       alert(`A ${slot + 1}. helyen nincs mentés`);
     }
